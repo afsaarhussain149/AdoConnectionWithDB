@@ -1,4 +1,4 @@
-﻿using Npgsql;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,17 +13,20 @@ namespace AdoConnectionWithDB
     {
         static void Main(string[] args)
         {
-            // cs is variable and declaring database connection
+            // cs is variable and declaring  database connection
             string cs = "Server=localhost;Port=5432;Database=ado_dbms;UserId=postgres;Password=1234";
             NpgsqlConnection conn = new NpgsqlConnection(cs);
 
             try
             {
-                conn.Open();
-
-                if (conn.State == ConnectionState.Open)
+                using (conn) 
                 {
-                    Console.WriteLine("Connection is Successfull...!");
+                    conn.Open();
+
+                    if (conn.State == ConnectionState.Open)
+                    {
+                        Console.WriteLine("Connection is Successfull...!");
+                    }
                 }
 
             }
@@ -41,3 +44,4 @@ namespace AdoConnectionWithDB
         
     }
 }
+
